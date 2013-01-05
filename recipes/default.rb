@@ -23,7 +23,6 @@ end
 template "/etc/init.d/sickbeard" do
     source "sickbeard.erb"
     mode 0755
-    notifies :restart, 'service[sickbeard]'
     owner "root"
     group "root"
 end
@@ -31,7 +30,6 @@ end
 template "/etc/default/sickbeard" do
     source "default_sickbeard.erb"
     mode 0644
-    notifies :restart, 'service[sickbeard]'
     owner "root"
     group "root"
 end
@@ -39,6 +37,7 @@ end
 execute "stop-sickbeard" do
   command "service sickbeard stop" ## only way to edit the config
   action  :run
+  only_if  'pidof couchpotato'
 end
 
 template "/home/#{node['sickbeard']['user']}/.sickbeard/config.ini" do
