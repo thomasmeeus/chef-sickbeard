@@ -14,6 +14,14 @@ directory  "/var/run/sickbeard" do
   action :create
 end
 
+directory  "/home/#{node['sickbeard']['user']}/.sickbeard/" do
+  owner node["sickbeard"]["user"]
+  group node["sickbeard"]["group"]
+  mode "0755"
+  recursive true
+  action :create
+end
+
 git "#{node['sickbeard']['location']}" do
   repository "git://github.com/midgetspy/Sick-Beard.git"
   reference "master"
