@@ -15,8 +15,8 @@ https_key = server.key
 use_nzbs = 1
 use_torrents = 0
 nzb_method = <%= node["sickbeard"]["nzb_method"] %>
-usenet_retention = 500
-search_frequency = 60
+usenet_retention = <%= node["sickbeard"]["usenet_retention"] %>
+search_frequency = <%= node["sickbeard"]["search_frequency"] %>
 download_propers = 1
 quality_default = 3
 status_default = 5

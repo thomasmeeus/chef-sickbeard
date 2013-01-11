@@ -10,4 +10,5 @@ default['sickbeard']['sab_category'] = "tv"
 default['sickbeard']['sab_host'] = "http://localhost:8000/"
 default['sickbeard']['provider_order'] = "nzbs_r_us nzbs_org womble_s_index tvtorrents ezrss btn sick_beard_index"
 default['sickbeard']['newznab_data'] = "Sick Beard Index|http://lolo.sickbeard.com/||0!!!NZBs.org|http://beta.n zbs.org/||0"
-
+default['sickbeard']["search_frequency"] = "60"
+default['sickbeard']["usenet_retention"] = "500"
