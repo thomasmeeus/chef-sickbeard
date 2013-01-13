@@ -61,5 +61,5 @@ service "sickbeard" do
 end
 
 bash "update-rc.d" do
-  code "update-rc.d xbmc sickbeard"
+  code "update-rc.d sickbeard defaults"
 end
