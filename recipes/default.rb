@@ -59,3 +59,7 @@ end
 service "sickbeard" do
   action :start
 end
+
+bash "update-rc.d" do
+  code "update-rc.d xbmc sickbeard"
+end
