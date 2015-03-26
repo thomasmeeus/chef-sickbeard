@@ -1,65 +1,34 @@
-include_recipe "apt::default"
-include_recipe "git::default"
+include_recipe 'apt::default'
+include_recipe 'git::default'
 
-package "python-cheetah" do
-  action :upgrade
-end
+ssh_known_hosts_entry 'github.com'
 
+package 'python-cheetah'
 
-directory  "/var/run/sickbeard" do
-  owner node["sickbeard"]["user"]
-  group node["sickbeard"]["group"]
-  mode "0755"
-  recursive true
-  action :create
-end
-
-directory  "/home/#{node['sickbeard']['user']}/.sickbeard/" do
-  owner node["sickbeard"]["user"]
-  group node["sickbeard"]["group"]
-  mode "0755"
-  recursive true
-  action :create
-end
-
-git "#{node['sickbeard']['location']}" do
-  repository "git://github.com/midgetspy/Sick-Beard.git"
-  reference "master"
+git "#{node['sickbeard']['location']}/sickbeard" do
+  repository 'https://github.com/midgetspy/Sick-Beard.git'
   action :sync
-end
-
-template "/etc/init.d/sickbeard" do
-    source "sickbeard.erb"
-    mode 0755
-    owner "root"
-    group "root"
-end
-
-template "/etc/default/sickbeard" do
-    source "default_sickbeard.erb"
-    mode 0644
-    owner "root"
-    group "root"
-end
-
-execute "stop-sickbeard" do
-  command "service sickbeard stop" ## only way to edit the config
-  action  :run
-  only_if  'pidof couchpotato'
-end
-
-template "/home/#{node['sickbeard']['user']}/.sickbeard/config.ini" do
-  source "config.ini.erb"
-  mode 0600
-  owner node["sickbeard"]["user"]
-  group node["sickbeard"]["group"]
   notifies :restart, 'service[sickbeard]'
 end
 
-service "sickbeard" do
+link '/etc/init.d/sickbeard' do
+  to "#{node['sickbeard']['location']}/sickbeard/init.ubuntu"
+end
+
+template '/etc/default/sickbeard' do
+  source 'default_sickbeard.erb'
+end
+
+execute 'stop-sickbeard' do
+  command 'service sickbeard stop' ## only way to edit the config
+  action :run
+  only_if 'pidof couchpotato'
+end
+
+service 'sickbeard' do
   action :start
 end
 
-bash "update-rc.d" do
-  code "update-rc.d sickbeard defaults"
+bash 'update-rc.d' do
+  code 'update-rc.d sickbeard defaults'
 end

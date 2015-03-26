@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+driver_config:
+  require_chef_omnibus: true
+  customize:
+    memory: 1024
+
+platforms:
+- name: debian-7.6
+  driver_config:
+    box: opscode_debian-7.6
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.6_chef-provisionerless.box
+- name: ubuntu-1404
+  driver_config:
+    box: opscode_ubuntu-14.04
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box
+
+suites:
+- name: default
+  run_list: ["recipe[sickbeard::default]"]
+
+provisioner:
+  name: chef_solo

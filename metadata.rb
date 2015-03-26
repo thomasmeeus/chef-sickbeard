@@ -1,10 +1,14 @@
-maintainer       "Thomas Meeus"
-maintainer_email "thomas@sector7g.be"
-license          "MIT"
-description      "Installs and configures Sickbeard"
-version          "1.0.0"
+maintainer 'Thomas Meeus'
+maintainer_email 'thomas@sector7g.be'
+license 'MIT'
+description 'Installs and configures Sickbeard'
+name 'sickbeard'
+version '1.1.0'
 
-supports          "ubuntu", ">= 12.10"
+%w(debian ubuntu).each do |os|
+  supports os
+end
 
-depends         "apt"
-depends         "git"
+depends 'git'
+depends 'apt'
+depends 'ssh_known_hosts'
