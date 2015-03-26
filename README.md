@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/thomasmeeus/chef-sickbeard.svg?branch=master)](https://travis-ci.org/thomasmeeus/chef-sickbeard)
+
 Description
 -----------
 Chef recipe to install and configure Sickbeard.
