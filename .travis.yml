@@ -1,0 +1,17 @@
+language: ruby
+
+cache:
+  - bundler
+  - apt
+
+env:
+  - BERKSHELF_PATH=/tmp/
+
+install:
+  - bundle install
+  - bundle exec berks vendor /tmp/cookbooks
+
+script:
+  - bundle exec foodcritic -f any .
+  - bundle exec rubocop
+
