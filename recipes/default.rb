@@ -25,6 +25,11 @@ execute 'stop-sickbeard' do
   only_if 'pidof couchpotato'
 end
 
+template "#{node['sickbeard']['location']}/sickbeard/config.ini" do
+  source 'config.ini.erb'
+  notifies :restart, 'service[sickbeard]'
+end
+
 service 'sickbeard' do
   action :start
 end
