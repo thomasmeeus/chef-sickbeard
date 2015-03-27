@@ -19,10 +19,8 @@ template '/etc/default/sickbeard' do
   source 'default_sickbeard.erb'
 end
 
-execute 'stop-sickbeard' do
-  command 'service sickbeard stop' ## only way to edit the config
-  action :run
-  only_if 'pidof couchpotato'
+service 'sickbeard' do
+  action :stop
 end
 
 template "#{node['sickbeard']['location']}/sickbeard/config.ini" do
